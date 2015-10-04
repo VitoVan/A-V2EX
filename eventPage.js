@@ -118,5 +118,4 @@ function onInit(){
         checkTab(tabId);
     });
 }
-//add another event listener, incase the background is killed.
 chrome.runtime.onInstalled.addListener(onInit);
