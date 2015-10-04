@@ -1,0 +1,22 @@
+{
+    "manifest_version": 2,
+
+    "name": "V2EX Blocker",
+    "description": "This extension blocks V2EX when you spend to much time on it",
+    "version": "1.0",
+
+    "browser_action": {
+        "default_icon": "icon.png",
+        "default_popup": "popup.html"
+    },
+    "background": {
+        "scripts": ["eventPage.js"],
+        "persistent": false
+    },
+    "permissions": [
+        "tabs",
+        "storage",
+        "*://*.v2ex.com/",
+        "*://v2ex.com/"
+    ]
+}

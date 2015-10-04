@@ -1,0 +1,40 @@
+<!doctype html>
+<!--
+This page is shown when the extension button is clicked, because the
+"browser_action" field in manifest.json contains the "default_popup" key with
+value "popup.html".
+-->
+<html>
+    <head>
+        <title>Getting Started Extension's Popup</title>
+        <style>
+         body {
+             font-family: "Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB","Microsoft Yahei","微软雅黑",sans-serif;
+             font-size: 100%;
+         }
+         #status {
+             /* avoid an excessively wide status text */
+             white-space: pre;
+             text-overflow: ellipsis;
+             overflow: hidden;
+             max-width: 400px;
+         }
+         .container{
+             min-width: 230px;
+         }
+         input{
+             width: 2em;
+             padding: 0 0.2em;
+             text-align: center;
+             margin: 0 0.4em;             
+         }
+        </style>
+        <script src="popup.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            Daily Quota (hour): <input id="quotaInput" type="text"> <button id="okButton">OK</button>
+        </div>
+    </body>
+</html>
+
