@@ -1,9 +1,9 @@
 {
     "manifest_version": 2,
 
-    "name": "V2EX Blocker",
-    "description": "This extension blocks V2EX when you spend to much time on it",
-    "version": "1.0",
+    "name": "A-V2EX",
+    "description": "Anti V2EX, block it when you spend to much time on it.",
+    "version": "1.1",
 
     "browser_action": {
         "default_icon": "icon.png",

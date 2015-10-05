@@ -1,2 +1,2 @@
 #!/bin/bash
-zip v2ex-blocker *
+zip A-V2EX *
