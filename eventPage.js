@@ -17,7 +17,9 @@ function requestV2EX(protocol,host, next) {
         }else{
             ACCESS_DENIED = false;
         }
-        next(ACCESS_DENIED);
+        if(next){
+            next(ACCESS_DENIED);
+        }
     };
     x.onerror = function() {
         errorCallback('Network error.');
@@ -38,6 +40,7 @@ function ddosV2EX(protocol, host, count){
 }
 function blockV2EX(protocol, host){
     ddosV2EX(protocol, host, 100);
+    chrome.tabs.executeScript(null,{file: "content_script.js"});
 }
 function checkIn(protocol, host){
     chrome.storage.local.get('checkInTime', function(item){
@@ -52,7 +55,10 @@ function checkIn(protocol, host){
     var today = new Date().toJSON().slice(0,10);
     chrome.storage.local.get('timeSpended', function(timeItem){
         if(timeItem && timeItem.timeSpended && timeItem.timeSpended.date === today){
-            lastTotalSeconds = timeItem.timeSpended.spendedSeconds;
+            var lastTotalSeconds = 0;
+            if(timeItem.timeSpended.spendedSeconds){
+                lastTotalSeconds = timeItem.timeSpended.spendedSeconds;
+            }
             chrome.storage.local.get('quota',function(quotaItem){
                 var quota = DEFAULT_QUOTA;
                 if(quotaItem && quotaItem.quota){
@@ -63,7 +69,7 @@ function checkIn(protocol, host){
                 if(quota * 60 * 60 > lastTotalSeconds){
                     console.log('Everything is fine, no need to block', 'quota:' , quota , 'spended hour:' , lastTotalSeconds / 60 /60);
                 }else{
-                    console.log('No....young man...');
+                    console.log('No....young man...', quota , 'spended hour:' , lastTotalSeconds / 60 /60);
                     blockV2EX(protocol, host);
                 }
             });
@@ -82,7 +88,9 @@ function checkOut(){
             chrome.storage.local.get('timeSpended', function(timeItem){
                 var lastTotalSeconds = 0;
                 if(timeItem && timeItem.timeSpended && timeItem.timeSpended.date === today){
-                    lastTotalSeconds = timeItem.timeSpended.spendedSeconds;
+                    if(timeItem.timeSpended.spendedSeconds){
+                        lastTotalSeconds = timeItem.timeSpended.spendedSeconds;                        
+                    }
                 }
                 var totalSeconds = spendedSeconds + lastTotalSeconds;
                 chrome.storage.local.set({'timeSpended': {'spendedSeconds' : totalSeconds, 'date' : today}});
@@ -96,15 +104,17 @@ function checkOut(){
 function checkTab(tabId){
     if(tabId){
         chrome.tabs.get(tabId,function(tab){
-            var link = getLink(tab.url);
-            var host = link.host;
-            var protocol = link.protocol;
-            console.log(host);
-            if(host.indexOf('v2ex.com') !== -1){
-                //ddosV2EX(protocol, host, 100);
-                checkIn(protocol, host);
-            }else{
-                checkOut();
+            if(tab){
+                var link = getLink(tab.url);
+                var host = link.host;
+                var protocol = link.protocol;
+                console.log(host);
+                if(host.indexOf('v2ex.com') !== -1){
+                    //ddosV2EX(protocol, host, 100);
+                    checkIn(protocol, host);
+                }else{
+                    checkOut();
+                }
             }
         });
     }
