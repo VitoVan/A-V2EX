@@ -9,8 +9,8 @@ Or use the zip version [Latest Release](https://github.com/VitoVan/A-V2EX/releas
 
 # Usage
 
-1, Set the Daily Quota (how many hours you should spend on V2EX every day).
-2, Wait to be blocked.
+1. Set the Daily Quota (how many hours you should spend on V2EX every day).
+2. Wait to be blocked.
 
 # Screenshots
 
