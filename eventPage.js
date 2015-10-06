@@ -129,3 +129,4 @@ function onInit(){
     });
 }
 chrome.runtime.onInstalled.addListener(onInit);
+chrome.runtime.onStartup.addListener(onInit);
