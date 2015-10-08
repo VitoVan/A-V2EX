@@ -1,6 +1,6 @@
 # Anti V2EX
 
-Block it when you spend to much time on it.
+Block it when you spend too much time on it.
 
 # Install
 
