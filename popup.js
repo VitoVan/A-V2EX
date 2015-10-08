@@ -1,4 +1,4 @@
-var DEFAULT_QUOTA = 2;
+var DEFAULT_QUOTA = 1;
 function addPageEvent(){
     document.getElementById('okButton').addEventListener('click', function(){
         var quota = document.getElementById('quotaInput').value;

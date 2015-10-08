@@ -1,5 +1,5 @@
 var ACCESS_DENIED = false;
-var DEFAULT_QUOTA = 2;
+var DEFAULT_QUOTA = 1;
 function getLink(url) {
     var a = document.createElement('a');
     a.href = url;
