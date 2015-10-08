@@ -5,7 +5,12 @@ function addPageEvent(){
         chrome.storage.local.set({'quota' : quota},function(){
             window.close();
         });
-    });;
+    });
+    document.getElementById('quotaInput').addEventListener('keydown', function(){
+        if(event.keyCode == 13){
+            document.getElementById('okButton').click();
+        }
+    });
 }
 function onInit() {
     chrome.storage.local.get('quota',function(quotaItem){
@@ -15,7 +20,9 @@ function onInit() {
         }else{
             chrome.storage.local.set({'quota' : 2});
         }
-        document.getElementsByTagName('input')[0].value = quota;
+        document.getElementById('quotaInput').value = quota;
+        document.getElementById('quotaInput').select();
+        document.getElementById('quotaInput').focus();
         addPageEvent();
     });
 }
