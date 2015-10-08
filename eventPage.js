@@ -8,7 +8,7 @@ function getLink(url) {
 function requestV2EX(protocol,host, next) {
     var x = new XMLHttpRequest();
     var requestUrl = protocol + '//' + host + '/?timestamp=' + Date.now();
-    console.log('Requesting...', requestUrl);
+    //console.log('Requesting...', requestUrl);
     x.open('GET', requestUrl);
     x.onload = function() {
         var response = x.response;
@@ -31,7 +31,7 @@ function ddosV2EX(protocol, host, count){
         if(denied_flag === false){
             for(var i=0;i<count;i++){
                 if(ACCESS_DENIED === false){
-                    console.log('DDOS: ', i);
+                    //console.log('DDOS: ', i);
                     requestV2EX(protocol, host);
                 }
             }
@@ -45,10 +45,10 @@ function blockV2EX(protocol, host){
 function checkIn(protocol, host){
     chrome.storage.local.get('checkInTime', function(item){
         if(item.checkInTime !== 0){
-            console.log('already checked in.');
+            //console.log('already checked in.');
         }else{
             chrome.storage.local.set({'checkInTime': Date.now()});
-            console.log('checkIng in.... ');
+            //console.log('checkIng in.... ');
         }
     });
     //check if we should block v2ex
@@ -67,9 +67,9 @@ function checkIn(protocol, host){
                     chrome.storage.local.set({'quota' : 2});                    
                 }
                 if(quota * 60 * 60 > lastTotalSeconds){
-                    console.log('Everything is fine, no need to block', 'quota:' , quota , 'spended hour:' , lastTotalSeconds / 60 /60);
+                    //console.log('Everything is fine, no need to block', 'quota:' , quota , 'spended hour:' , lastTotalSeconds / 60 /60);
                 }else{
-                    console.log('No....young man...', quota , 'spended hour:' , lastTotalSeconds / 60 /60);
+                    //console.log('No....young man...', quota , 'spended hour:' , lastTotalSeconds / 60 /60);
                     blockV2EX(protocol, host);
                 }
             });
@@ -81,7 +81,7 @@ function checkOut(){
         if(item.checkInTime !== 0){
             //caculate seconds spended on V2EX this time.
             var spendedSeconds = (Date.now() - item.checkInTime)/1000;
-            console.log('checkIng OUT.... ', ' Seconds: ', spendedSeconds);
+            //console.log('checkIng OUT.... ', ' Seconds: ', spendedSeconds);
             chrome.storage.local.set({'checkInTime': 0});
             //caculate todays total seconds on V2EX
             var today = new Date().toJSON().slice(0,10);
@@ -94,10 +94,10 @@ function checkOut(){
                 }
                 var totalSeconds = spendedSeconds + lastTotalSeconds;
                 chrome.storage.local.set({'timeSpended': {'spendedSeconds' : totalSeconds, 'date' : today}});
-                console.log('Today, spended: ', totalSeconds);
+                //console.log('Today, spended: ', totalSeconds);
             });
         }else{
-            console.log('not checked in.');
+            //console.log('not checked in.');
         }
     });
 }
@@ -109,7 +109,7 @@ function checkTab(tabId){
                     var link = getLink(tab.url);
                     var host = link.host;
                     var protocol = link.protocol;
-                    console.log(host);
+                    //console.log(host);
                     if(host.indexOf('v2ex.com') !== -1){
                         //ddosV2EX(protocol, host, 100);
                         checkIn(protocol, host);
@@ -119,7 +119,7 @@ function checkTab(tabId){
                 }
             });
         }catch(ex){
-            console.log(ex);
+            //console.log(ex);
         }
     }
 }
